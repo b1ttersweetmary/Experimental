@@ -19,9 +19,14 @@ const remixA = localFont({
 });
 
 export const metadata = {
-  title: "Deutschland – Alltag, Kultur, Werte",
+  title: "Deutschland Kultur Frage",
   description:
     "Themenübersicht zu Deutschlandflagge, Deutschland, Alltag, Kultur, Werte, Politik und Zukunft.",
+  icons: {
+    icon: "/logo-circle.svg",
+    shortcut: "/logo-circle.svg",
+    apple: "/logo-circle.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
