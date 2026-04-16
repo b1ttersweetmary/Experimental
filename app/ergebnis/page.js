@@ -51,9 +51,18 @@ export default function ErgebnisPage() {
               fontWeight: 600,
               textTransform: "uppercase",
               color: "#580A1B",
+              textAlign: "center",
             }}
           >
-            {item.label}
+            {item.slug === "deutschlandflagge" ? (
+              <>
+                DEUTSCHLAND-
+                <br />
+                FLAGGE
+              </>
+            ) : (
+              item.label
+            )}
           </Link>
         ))}
       </div>
