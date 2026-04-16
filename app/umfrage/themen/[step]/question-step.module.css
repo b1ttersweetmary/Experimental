@@ -127,7 +127,7 @@
 .submitButton {
   position: absolute;
   right: 16px;
-  bottom: 0;
+  bottom: 10px;
   border-radius: 40px;
   padding: 10px 32px 6px 32px;
   border: 1px solid #0f3a18;
@@ -144,6 +144,9 @@
   font-size: 1rem;
   line-height: 1;
   cursor: pointer;
+}
+
+.submitButtonZukunft {
 }
 
 .arrows {
@@ -205,10 +208,11 @@
 @media (max-width: 768px) {
   .controls {
     width: 100%;
-    left: 0;
-    transform: none;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
+    bottom: 52px; /* Eingabefeld über den Pfeilen platzieren */
   }
 
   .inputBar {
@@ -216,8 +220,9 @@
     min-width: 0;
   }
 
-  .submitButton {
-    right: 0;
+  .submitButtonZukunft {
+    right: 16px;
+    bottom: 104px; /* Abschicken-Button über dem Eingabefeld */
   }
 }
 

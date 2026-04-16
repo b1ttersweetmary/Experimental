@@ -285,7 +285,7 @@ export default function QuestionStepClient({ step }) {
           {current.slug === "zukunft" && (
             <button
               type="button"
-              className={styles.submitButton}
+              className={`${styles.submitButton} ${styles.submitButtonZukunft}`}
               onClick={handleSubmitAll}
             >
               Abschicken
