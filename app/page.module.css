@@ -1,0 +1,57 @@
+.page {
+  display: flex;
+  min-height: calc(100vh - 64px);
+  align-items: flex-start;
+  justify-content: center;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: var(--font-remix-a), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 48px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+}
+
+.row:last-child {
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 16px;
+  text-decoration: none;
+  color: inherit;
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.link:hover {
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .main {
+    align-items: stretch;
+  }
+}
+

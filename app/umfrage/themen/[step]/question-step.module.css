@@ -1,0 +1,223 @@
+.page {
+  min-height: 100svh;
+  background: #1d531f;
+  color: #000;
+  padding: calc(var(--nav-height) + 8px) var(--page-gutter) var(--page-gutter)
+    var(--page-gutter);
+  box-sizing: border-box;
+  font-family: var(--font-remix-a), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.canvas {
+  position: relative;
+  min-height: calc(100svh - (var(--nav-height) + 8px) - var(--page-gutter));
+}
+
+.flag {
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  width: min(44vw, 520px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.centerWord {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffb5f5;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.chip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ebebeb;
+  border: 1px solid #000;
+  color: #000;
+  padding: 6px 8px 6px 12px;
+  min-width: 90px;
+  max-width: 280px;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  line-height: 1.2;
+  border-radius: 0;
+  font-family: var(--font-plex-sans), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.chip span {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  flex: 1 1 auto;
+}
+
+.chipClose {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: #222;
+  flex: 0 0 auto;
+  margin-left: 10px;
+  padding: 0 1px;
+  align-self: center;
+}
+
+.chipClose:active {
+  transform: none;
+}
+
+.controls {
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  transform: translateX(-50%);
+}
+
+.inputBar {
+  width: min(38vw, 430px);
+  min-width: 280px;
+  height: auto;
+  border-radius: 40px;
+  background: #45dc75;
+  border: 1px solid #0f3a18;
+  display: flex;
+  align-items: center;
+  padding: 10px 32px 6px 32px;
+}
+
+.input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #000;
+  font-size: 1rem;
+  line-height: 1;
+  font-family: var(--font-remix-a), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.input::placeholder {
+  color: #1a1a1a;
+}
+
+.submitButton {
+  position: absolute;
+  right: 16px;
+  bottom: 0;
+  border-radius: 40px;
+  padding: 10px 32px 6px 32px;
+  border: 1px solid #0f3a18;
+  background: #ffb5f5;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-remix-a), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.arrows {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.arrow {
+  pointer-events: auto;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+
+.arrowPlaceholder {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+}
+
+.arrowIcon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.arrowIconLeft {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  transform: rotate(180deg);
+}
+
+@media (max-width: 900px) {
+  .centerWord {
+    font-size: clamp(2rem, 8vw, 4rem);
+  }
+
+  .chip {
+    font-size: 1rem;
+    max-width: 220px;
+  }
+
+  .inputBar {
+    width: min(65vw, 430px);
+  }
+}
+
+@media (max-width: 768px) {
+  .controls {
+    width: 100%;
+    left: 0;
+    transform: none;
+    display: flex;
+    justify-content: center;
+  }
+
+  .inputBar {
+    width: min(92vw, 430px);
+    min-width: 0;
+  }
+
+  .submitButton {
+    right: 0;
+  }
+}
+

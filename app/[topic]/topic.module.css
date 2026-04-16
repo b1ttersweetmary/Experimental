@@ -1,0 +1,194 @@
+.page {
+  min-height: 100svh;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: var(--page-gutter);
+  padding-top: calc(var(--nav-height) + 6px);
+  background-color: #000000;
+  color: #ffffff;
+  font-family: var(--font-plex-sans), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.main {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+
+.header {
+  border-bottom: 1px solid #000;
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+}
+
+.area {
+  position: relative;
+  width: 100%;
+  /* Viewport-Höhe abzüglich Nav + Seitenrand (angepasst an neues Padding) */
+  min-height: calc(100svh - var(--nav-height) - 16px);
+  margin: 0;
+  border: 1px solid transparent;
+  overflow: visible;
+  touch-action: none;
+  box-sizing: border-box;
+}
+
+.term {
+  position: absolute;
+  min-width: 120px;
+  padding: 6px 8px 6px 12px;
+  border-radius: 0;
+  border: 1px solid #000000;
+  background-color: #ebebeb;
+  cursor: grab;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  line-height: 1.2;
+  color: #000000;
+  font-family: var(--font-plex-sans), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  user-select: none;
+}
+
+.term:active {
+  cursor: grabbing;
+}
+
+.placeholder {
+  font-size: 1rem;
+  color: #555555;
+}
+
+.toggle {
+  width: 60px;
+  height: 28px;
+  border-radius: 14px;
+  background-color: #ebebeb;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  cursor: pointer;
+  z-index: 1;
+  border: none;
+  outline: none;
+}
+
+.toggle-knob {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #ebebeb; /* gleich wie Navigations-Button-Grau */
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+
+.toggle-knob-on {
+  transform: translateX(32px);
+}
+
+.controlBar {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Toggle links, Eingabefeld rechts */
+  gap: 8px;
+  z-index: 10;
+}
+
+.inputBar {
+  min-width: 180px;
+  height: 28px;
+  border-radius: 14px;
+  background-color: #ebebeb;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.inputField {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.85rem;
+  font-family: var(--font-plex-sans), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.term {
+  position: absolute;
+  min-width: 120px;
+  padding: 6px 12px;
+  border-radius: 0;
+  border: 1px solid #000000;
+  background-color: #ebebeb;
+  cursor: grab;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  line-height: 1.2;
+  color: #000000;
+  font-family: var(--font-plex-sans), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+}
+
+.sortedGrid {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 0;
+  /* Platz nach unten, damit keine Wörter unter dem Toggle liegen */
+  padding: 8px 8px 44px 8px;
+  box-sizing: border-box;
+}
+
+.termSorted {
+  position: static;
+}
+
+.termLabel {
+  white-space: normal; /* lange Wörter / Sätze dürfen umbrechen */
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.termDelete {
+  border: none;
+  background: transparent;
+  color: #000000;
+  cursor: pointer;
+  font-size: 1.2rem; /* noch größer sichtbar */
+  margin-left: 10px;
+  padding: 0 1px;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .term {
+    font-size: 0.9rem;
+  }
+
+  .controlBar {
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+  }
+}
+
