@@ -18,7 +18,7 @@ export default function ErgebnisPage() {
         backgroundColor: "#C5CCFF",
         color: "#580A1B",
         paddingTop: "calc(var(--nav-height) + 4px)",
-        paddingBottom: "16px",
+        paddingBottom: "8px",
         paddingLeft: "var(--page-gutter)",
         paddingRight: "var(--page-gutter)",
         boxSizing: "border-box",
@@ -33,10 +33,7 @@ export default function ErgebnisPage() {
           margin: "0 auto",
           display: "flex",
           flexDirection: "column",
-          gap: "clamp(6px, 0.9vh, 10px)",
-          minHeight: "calc(100svh - (var(--nav-height) + 16px) - 16px)",
-          justifyContent: "space-between",
-          marginTop: "-8px",
+          gap: "4px",
         }}
       >
         {ITEMS.map((item) => (
@@ -49,7 +46,7 @@ export default function ErgebnisPage() {
               alignItems: "center",
               justifyContent: "center",
               width: "100%",
-              padding: "8px 16px",
+              padding: "4px 16px",
               fontSize: "clamp(2.5rem, 5.3vw, 4.2rem)",
               fontWeight: 600,
               textTransform: "uppercase",

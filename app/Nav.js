@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -14,34 +13,9 @@ const links = [
 
 export default function Nav() {
   const pathname = usePathname();
-  const navRef = useRef(null);
-
-  useEffect(() => {
-    const nav = navRef.current;
-    if (!nav || typeof window === "undefined") return;
-
-    const setDynamicNavHeight = () => {
-      const height = Math.ceil(nav.getBoundingClientRect().height);
-      document.documentElement.style.setProperty("--nav-height", `${height}px`);
-    };
-
-    setDynamicNavHeight();
-
-    const observer = new ResizeObserver(() => {
-      setDynamicNavHeight();
-    });
-
-    observer.observe(nav);
-    window.addEventListener("resize", setDynamicNavHeight);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", setDynamicNavHeight);
-    };
-  }, []);
 
   return (
-    <nav className="top-nav" ref={navRef}>
+    <nav className="top-nav">
       <div className="top-nav-inner">
         {links.map((link) => {
           const isActive =

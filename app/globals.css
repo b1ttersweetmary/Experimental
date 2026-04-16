@@ -153,7 +153,8 @@ html::-webkit-scrollbar {
 @media (max-width: 768px) {
   :root {
     --page-gutter: 10px;
-    --nav-height: 172px;
+    /* etwas mehr Platz für 2-zeilige Navi, aber nicht so groß wie vorher */
+    --nav-height: 96px;
   }
 
   .top-nav {
@@ -178,7 +179,7 @@ html::-webkit-scrollbar {
 @media (max-width: 460px) {
   :root {
     --page-gutter: 8px;
-    --nav-height: 168px;
+    --nav-height: 88px;
   }
 
   .top-nav-inner {
