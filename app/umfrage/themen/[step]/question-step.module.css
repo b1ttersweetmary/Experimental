@@ -244,3 +244,14 @@
   }
 }
 
+/* Schmale Phones (ab ca. iPhone‑15‑Klasse, z. B. 393 px breit): Pfeile links/rechts wie Eingabe-Pille */
+@media (max-width: 430px) {
+  .arrows {
+    left: 50%;
+    right: auto;
+    width: min(92vw, 430px);
+    transform: translateX(-50%);
+    box-sizing: border-box;
+  }
+}
+
