@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import styles from "./question-step.module.css";
 import { getOrCreateUserId } from "@/lib/clientUserId";
 
@@ -21,19 +21,42 @@ const STEPS = [
   { slug: "zukunft", label: "ZUKUNFT", resultPath: "/Zukunft" },
 ];
 
-function randomPosition(index) {
+/**
+ * Spiral/Ring um die Mitte; Offsets werden an Canvas-Breite/-Höhe geklemmt,
+ * unten Platz für Eingabe + Pfeile (mobil).
+ */
+function randomPosition(index, canvasW, canvasH) {
+  const W = Math.max(canvasW, 220);
+  const H = Math.max(canvasH, 220);
+  const short = Math.min(W, H);
+  const halfW = W / 2;
+  const halfH = H / 2;
+
   const angle = (index * 137.5 * Math.PI) / 180;
 
-  const baseRadius = 260;
-  const radius = baseRadius + (index % 5) * 30;
+  const baseRadius = Math.min(260, short * 0.38);
+  const radius = Math.min(baseRadius + (index % 5) * Math.min(30, short * 0.045), short * 0.46);
 
   let x = Math.cos(angle) * radius;
   let y = Math.sin(angle) * (radius * 0.55);
 
-  const minCenterPaddingY = 110;
+  const minCenterPaddingY = Math.min(110, short * 0.16);
   if (Math.abs(y) < minCenterPaddingY) {
     y = y >= 0 ? minCenterPaddingY : -minCenterPaddingY;
   }
+
+  const chipHalfW = Math.min(140, halfW - 12);
+  const chipHalfH = Math.min(100, short * 0.18);
+  const sidePad = 8;
+  const topPad = Math.min(40, H * 0.06);
+  const bottomPad = Math.min(140, Math.max(88, H * 0.22));
+
+  const maxAbsX = Math.max(0, halfW - chipHalfW - sidePad);
+  const maxUp = Math.max(minCenterPaddingY, halfH - topPad - chipHalfH);
+  const maxDown = Math.max(minCenterPaddingY, halfH - bottomPad - chipHalfH);
+
+  x = Math.max(-maxAbsX, Math.min(maxAbsX, x));
+  y = Math.max(-maxUp, Math.min(maxDown, y));
 
   return { x, y };
 }
@@ -64,6 +87,25 @@ export default function QuestionStepClient({ step }) {
   const [input, setInput] = useState("");
   const [items, setItems] = useState([]);
   const [flagSrc, setFlagSrc] = useState(FLAG_SRC_PNG);
+  const canvasRef = useRef(null);
+  const [canvasSize, setCanvasSize] = useState({ w: 0, h: 0 });
+
+  useLayoutEffect(() => {
+    const el = canvasRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const update = () => {
+      const r = el.getBoundingClientRect();
+      setCanvasSize({ w: r.width, h: r.height });
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    window.addEventListener("orientationchange", update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("orientationchange", update);
+    };
+  }, []);
 
   useEffect(() => {
     if (current.isFlag) setFlagSrc(FLAG_SRC_PNG);
@@ -102,14 +144,20 @@ export default function QuestionStepClient({ step }) {
     };
   }, [step, topicNameForStorage, userId]);
 
-  const positioned = useMemo(
-    () =>
-      items.map((item, idx) => ({
-        ...item,
-        ...randomPosition(idx),
-      })),
-    [items]
-  );
+  const positioned = useMemo(() => {
+    const w =
+      canvasSize.w ||
+      (typeof window !== "undefined" ? window.innerWidth : 400);
+    const h =
+      canvasSize.h ||
+      (typeof window !== "undefined"
+        ? Math.max(280, window.innerHeight * 0.65)
+        : 500);
+    return items.map((item, idx) => ({
+      ...item,
+      ...randomPosition(idx, w, h),
+    }));
+  }, [items, canvasSize]);
 
   const handleAdd = async () => {
     const value = input.trim();
@@ -169,12 +217,14 @@ export default function QuestionStepClient({ step }) {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <section className={styles.canvas}>
+        <section ref={canvasRef} className={styles.canvas}>
           {positioned.map((item) => (
             <div
               key={item.id}
               className={styles.chip}
-              style={{ transform: `translate(${item.x}px, ${item.y}px)` }}
+              style={{
+                transform: `translate(calc(-50% + ${item.x}px), calc(-50% + ${item.y}px))`,
+              }}
             >
               <span>{item.text}</span>
               {userId && item.ownerId === userId && (
