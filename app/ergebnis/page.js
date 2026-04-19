@@ -17,7 +17,7 @@ export default function ErgebnisPage() {
       style={{
         backgroundColor: "#C5CCFF",
         color: "#580A1B",
-        paddingTop: "calc(var(--nav-height) + 4px)",
+        paddingTop: "calc(var(--nav-height) + var(--nav-content-gap))",
         paddingBottom: "16px",
         paddingLeft: "var(--page-gutter)",
         paddingRight: "var(--page-gutter)",

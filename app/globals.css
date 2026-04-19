@@ -2,8 +2,10 @@
   --background: #ffffff;
   --foreground: #171717;
   --page-gutter: 16px;
-  /* Fallback bis JS misst echte Höhe (.top-nav ResizeObserver); auf schmalen Phones mehrzeilig */
+  /* Fallback bis JS misst echte Höhe (.top-nav ResizeObserver); ohne min-height auf .top-nav bleibt die Höhe real */
   --nav-height: 64px;
+  /* Lücke Nav-Unterkante → Hauptinhalt (gleich bei 1–n Nav-Zeilen; JS setzt nur --nav-height) */
+  --nav-content-gap: 8px;
   --nav-row-gap: 12px;
   --content-max-width: 1200px;
   /* Grauton der Nav-Buttons (.nav-pill Standard-Hintergrund) */
@@ -101,7 +103,6 @@ html::-webkit-scrollbar {
   top: 0;
   left: 0;
   right: 0;
-  min-height: var(--nav-height);
   background-color: transparent;
   display: flex;
   align-items: center;
@@ -159,8 +160,8 @@ html::-webkit-scrollbar {
 @media (max-width: 768px) {
   :root {
     --page-gutter: 10px;
-    /* Fallback 3-z./mehrzeilige Nav bis Messung durch ResizeObserver greift */
-    --nav-height: 152px;
+    /* Konservativer Fallback bis ResizeObserver (ohne min-height keine „Phantomhöhe“ mehr) */
+    --nav-height: 112px;
   }
 
   .top-nav {
@@ -185,8 +186,7 @@ html::-webkit-scrollbar {
 @media (max-width: 460px) {
   :root {
     --page-gutter: 8px;
-    /* Sehr schmale Geräte: oft 3–4 Button-Zeilen */
-    --nav-height: 200px;
+    --nav-height: 136px;
   }
 
   .top-nav-inner {

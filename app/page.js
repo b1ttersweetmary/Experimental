@@ -8,7 +8,7 @@ export default function Home() {
         display: "flex",
         alignItems: "flex-end",
         justifyContent: "center",
-        paddingTop: "calc(var(--nav-height) + 12px)",
+        paddingTop: "calc(var(--nav-height) + var(--nav-content-gap))",
         paddingBottom: "16px",
         paddingLeft: "var(--page-gutter)",
         paddingRight: "var(--page-gutter)",

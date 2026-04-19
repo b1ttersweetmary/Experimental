@@ -12,7 +12,7 @@ export default function UeberPage() {
         minHeight: "100svh",
         backgroundColor: "#FFB5F5",
         color: "#1D531F",
-        paddingTop: "calc(var(--nav-height) + 8px)",
+        paddingTop: "calc(var(--nav-height) + var(--nav-content-gap))",
         paddingBottom: "20px",
         paddingLeft: "calc(var(--page-gutter) + 8px)",
         paddingRight: "calc(var(--page-gutter) + 8px)",

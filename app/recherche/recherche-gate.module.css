@@ -2,7 +2,7 @@
   min-height: 100svh;
   background-color: #580a1b;
   color: #c5ccff;
-  padding: calc(var(--nav-height) + 16px) var(--page-gutter) 32px var(--page-gutter);
+  padding: calc(var(--nav-height) + var(--nav-content-gap)) var(--page-gutter) 32px var(--page-gutter);
   box-sizing: border-box;
   font-family: var(--font-remix-a), system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;

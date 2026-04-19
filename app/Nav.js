@@ -23,7 +23,7 @@ export default function Nav() {
     if (!nav) return;
 
     const sync = () => {
-      const h = Math.ceil(nav.getBoundingClientRect().height);
+      const h = Math.round(nav.getBoundingClientRect().height);
       root.style.setProperty("--nav-height", `${h}px`);
     };
 

@@ -2,7 +2,7 @@
   min-height: 100svh;
   background: #1d531f;
   color: #000;
-  padding: calc(var(--nav-height) + 8px) var(--page-gutter) var(--page-gutter)
+  padding: calc(var(--nav-height) + var(--nav-content-gap)) var(--page-gutter) var(--page-gutter)
     var(--page-gutter);
   box-sizing: border-box;
   font-family: var(--font-remix-a), system-ui, -apple-system, BlinkMacSystemFont,
@@ -18,7 +18,9 @@
 
 .canvas {
   position: relative;
-  min-height: calc(100svh - (var(--nav-height) + 8px) - var(--page-gutter));
+  min-height: calc(
+    100svh - (var(--nav-height) + var(--nav-content-gap)) - var(--page-gutter)
+  );
 }
 
 .flag {

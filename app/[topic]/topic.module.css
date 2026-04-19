@@ -4,7 +4,7 @@
   align-items: stretch;
   justify-content: stretch;
   padding: var(--page-gutter);
-  padding-top: calc(var(--nav-height) + 6px);
+  padding-top: calc(var(--nav-height) + var(--nav-content-gap));
   background-color: #000000;
   color: #ffffff;
   font-family: var(--font-plex-sans), system-ui, -apple-system, BlinkMacSystemFont,
@@ -37,7 +37,7 @@
   /* Gleicher Abstand zum unteren Rand: Chaos (bottom) und geordnet (padding-bottom) */
   --control-bar-bottom: 8px;
   /* Viewport-Höhe abzüglich Nav + Seitenrand (angepasst an neues Padding) */
-  min-height: calc(100svh - var(--nav-height) - 16px);
+  min-height: calc(100svh - var(--nav-height) - var(--nav-content-gap) - 16px);
   margin: 0;
   border: 1px solid transparent;
   overflow: visible;
@@ -55,7 +55,7 @@
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
   touch-action: pan-y;
-  max-height: calc(100dvh - var(--nav-height) - 40px);
+  max-height: calc(100dvh - var(--nav-height) - var(--nav-content-gap) - 32px);
 }
 
 .term {

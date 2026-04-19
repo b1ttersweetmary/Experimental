@@ -7,7 +7,7 @@ export default function UmfrageIntroPage() {
         minHeight: "100svh",
         backgroundColor: "#1D531F",
         color: "#000000",
-        paddingTop: "calc(var(--nav-height) + 8px)",
+        paddingTop: "calc(var(--nav-height) + var(--nav-content-gap))",
         paddingBottom: "20px",
         paddingLeft: "calc(var(--page-gutter) + 8px)",
         paddingRight: "calc(var(--page-gutter) + 8px)",
