@@ -13,29 +13,20 @@ const ITEMS = [
 export default function ErgebnisPage() {
   return (
     <div
+      className="ergebnis-page-shell"
       style={{
-        minHeight: "100svh",
         backgroundColor: "#C5CCFF",
         color: "#580A1B",
         paddingTop: "calc(var(--nav-height) + 4px)",
-        paddingBottom: "8px",
+        paddingBottom: "16px",
         paddingLeft: "var(--page-gutter)",
         paddingRight: "var(--page-gutter)",
         boxSizing: "border-box",
-        overflow: "hidden",
         fontFamily:
           "var(--font-remix-a), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
       }}
     >
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          display: "flex",
-          flexDirection: "column",
-          gap: "4px",
-        }}
-      >
+      <div className="ergebnis-list">
         {ITEMS.map((item) => (
           <Link
             key={item.slug}
@@ -55,11 +46,13 @@ export default function ErgebnisPage() {
             }}
           >
             {item.slug === "deutschlandflagge" ? (
-              <>
-                DEUTSCHLAND-
-                <br />
-                FLAGGE
-              </>
+              <span className="deutschlandflagge-wrap">
+                <span className="deutschlandflagge-full">DEUTSCHLANDFLAGGE</span>
+                <span className="deutschlandflagge-mobile">
+                  <span className="deutschlandflagge-mobile-line">DEUTSCHLAND</span>
+                  <span className="deutschlandflagge-mobile-line">FLAGGE</span>
+                </span>
+              </span>
             ) : (
               item.label
             )}
