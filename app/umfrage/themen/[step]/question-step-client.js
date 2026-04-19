@@ -85,7 +85,12 @@ export default function QuestionStepClient({ step }) {
               ownerId: r.userId,
             }))
           : [];
-        setItems(list);
+        // Nur eigene Einträge: Fremde Antworten nur auf den Ergebnis-/Themen-Seiten
+        const mine =
+          userId.length > 0
+            ? list.filter((item) => item.ownerId === userId)
+            : [];
+        setItems(mine);
       } catch (e) {
         console.warn("Antworten laden fehlgeschlagen", e);
         if (!cancelled) setItems([]);
@@ -95,7 +100,7 @@ export default function QuestionStepClient({ step }) {
     return () => {
       cancelled = true;
     };
-  }, [step, topicNameForStorage]);
+  }, [step, topicNameForStorage, userId]);
 
   const positioned = useMemo(
     () =>

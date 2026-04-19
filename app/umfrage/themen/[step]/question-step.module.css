@@ -74,17 +74,22 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 1.2rem;
-  line-height: 1;
-  color: #222;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex: 0 0 auto;
   margin-left: 10px;
-  padding: 0 1px;
-  align-self: center;
+  padding: 0;
+  width: 1.4rem;
+  height: 1.4rem;
+  font-size: 1.15rem;
+  line-height: 1;
+  color: #222;
+  transform: translateY(-0.07em);
 }
 
 .chipClose:active {
-  transform: none;
+  opacity: 0.75;
 }
 
 .controls {

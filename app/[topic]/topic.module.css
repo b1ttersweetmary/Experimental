@@ -208,10 +208,16 @@
   background: transparent;
   color: #000000;
   cursor: pointer;
-  font-size: 1.2rem; /* noch größer sichtbar */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-left: 10px;
-  padding: 0 1px;
+  padding: 0;
+  width: 1.4rem;
+  height: 1.4rem;
+  font-size: 1.15rem;
   line-height: 1;
+  transform: translateY(-0.07em);
 }
 
 @media (max-width: 768px) {
