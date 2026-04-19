@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = {
   title: "Über",
   description: "Seite über Maria Tafler.",
@@ -79,6 +81,23 @@ export default function UeberPage() {
             >
               info@mariatafler.de
             </a>
+            <br />
+            <Link
+              href="/ueber/impressum"
+              className="ueber-email-link"
+              style={{
+                display: "inline-block",
+                marginTop: "0.25em",
+                color: "#1D531F",
+                fontSize: "clamp(1rem, 1.8vw, 2rem)",
+                lineHeight: 1.15,
+                textDecoration: "none",
+                fontFamily:
+                  "var(--font-remix-a), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+              }}
+            >
+              Impressum
+            </Link>
           </div>
         </section>
       </div>

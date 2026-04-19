@@ -349,6 +349,12 @@ html::-webkit-scrollbar {
   text-decoration: underline;
 }
 
+.ueber-email-link-on-dark:hover,
+.ueber-email-link-on-dark:focus-visible,
+.ueber-email-link-on-dark:active {
+  color: #ffffff;
+}
+
 /* Spacer auf Umfrage bleibt bis etwa 10" erhalten */
 .umfrage-spacer-block {
   display: block;

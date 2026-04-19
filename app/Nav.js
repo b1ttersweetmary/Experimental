@@ -20,7 +20,9 @@ export default function Nav() {
         {links.map((link) => {
           const isActive =
             pathname === link.href ||
-            (link.href === "/umfrage" && pathname.startsWith("/umfrage"));
+            (link.href === "/umfrage" && pathname.startsWith("/umfrage")) ||
+            (link.href === "/ueber" &&
+              (pathname === "/ueber" || pathname.startsWith("/ueber/")));
 
           return (
             <Link
