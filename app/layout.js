@@ -18,7 +18,7 @@ const remixA = localFont({
   style: "normal",
 });
 
-// Tab-Icon: siehe app/icon.svg (Next.js File Convention, überschreibt metadata.icons).
+// Tab-Icon: app/icon.png (PNG — Safari nutzt SVG-Favicons oft nicht). Neu erzeugen: npm run icons
 export const metadata = {
   title: "Deutschland Kultur Frage",
   description:
