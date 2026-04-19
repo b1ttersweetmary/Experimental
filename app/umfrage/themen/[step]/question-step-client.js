@@ -214,7 +214,7 @@ export default function QuestionStepClient({ step }) {
             <div className={styles.inputBar}>
               <input
                 type="text"
-                placeholder="hier eingeben"
+                placeholder="Hier eingeben und bestätigen (Enter)"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => {

@@ -4,7 +4,7 @@ export default function Home() {
       style={{
         minHeight: "100svh",
         backgroundColor: "#000000",
-        color: "#ffffff",
+        color: "var(--nav-button-gray)",
         display: "flex",
         alignItems: "flex-end",
         justifyContent: "center",

@@ -1,17 +1,19 @@
 const imprintTextSize = "clamp(1rem, 1.8vw, 2rem)";
 /** Wie „Schreibe alles auf, was dir einfällt.“ auf der Umfrage-Einstiegsseite */
 const umfrageBodySize = "clamp(0.82rem, 1.2vw, 1.3rem)";
+/** Gleicher Grauton wie Nav-Buttons */
+const uiButtonGray = "#ebebeb";
 
 const headingBlock = {
   margin: 0,
-  color: "#ffffff",
+  color: uiButtonGray,
   fontSize: imprintTextSize,
   lineHeight: 1.35,
 };
 
 const bodyBlock = {
   margin: 0,
-  color: "#ffffff",
+  color: uiButtonGray,
   fontSize: umfrageBodySize,
   lineHeight: 1.35,
 };
@@ -27,7 +29,7 @@ export default function ImpressumPage() {
       style={{
         minHeight: "100svh",
         backgroundColor: "#000000",
-        color: "#ffffff",
+        color: uiButtonGray,
         paddingTop: "calc(var(--nav-height) + 8px)",
         paddingBottom: "20px",
         paddingLeft: "calc(var(--page-gutter) + 8px)",
@@ -64,7 +66,7 @@ export default function ImpressumPage() {
             <p
               style={{
                 margin: 0,
-                color: "#ffffff",
+                color: uiButtonGray,
                 fontSize: imprintTextSize,
                 lineHeight: 1.15,
               }}
@@ -95,7 +97,7 @@ export default function ImpressumPage() {
                   href="mailto:info@mariatafler.de"
                   className="ueber-email-link ueber-email-link-on-dark"
                   style={{
-                    color: "#ffffff",
+                    color: uiButtonGray,
                     fontSize: umfrageBodySize,
                     textDecoration: "none",
                   }}
@@ -115,7 +117,7 @@ export default function ImpressumPage() {
                   rel="noopener noreferrer"
                   className="ueber-email-link ueber-email-link-on-dark"
                   style={{
-                    color: "#ffffff",
+                    color: uiButtonGray,
                     fontSize: umfrageBodySize,
                     textDecoration: "none",
                     wordBreak: "break-all",
@@ -173,7 +175,7 @@ export default function ImpressumPage() {
             <p
               style={{
                 margin: 0,
-                color: "#ffffff",
+                color: uiButtonGray,
                 fontSize: imprintTextSize,
                 lineHeight: 1.15,
               }}
@@ -204,7 +206,7 @@ export default function ImpressumPage() {
                   href="mailto:info@mariatafler.de"
                   className="ueber-email-link ueber-email-link-on-dark"
                   style={{
-                    color: "#ffffff",
+                    color: uiButtonGray,
                     fontSize: umfrageBodySize,
                     textDecoration: "none",
                   }}
@@ -250,7 +252,7 @@ export default function ImpressumPage() {
                   marginBottom: 0,
                   paddingLeft: "1.25em",
                   listStyleType: "disc",
-                  color: "#ffffff",
+                  color: uiButtonGray,
                   fontSize: umfrageBodySize,
                   lineHeight: 1.35,
                 }}

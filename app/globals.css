@@ -2,9 +2,12 @@
   --background: #ffffff;
   --foreground: #171717;
   --page-gutter: 16px;
+  /* Fallback bis JS misst echte Höhe (.top-nav ResizeObserver); auf schmalen Phones mehrzeilig */
   --nav-height: 64px;
   --nav-row-gap: 12px;
   --content-max-width: 1200px;
+  /* Grauton der Nav-Buttons (.nav-pill Standard-Hintergrund) */
+  --nav-button-gray: #ebebeb;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -104,7 +107,10 @@ html::-webkit-scrollbar {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 8px var(--page-gutter);
+  padding-top: calc(8px + env(safe-area-inset-top, 0px));
+  padding-bottom: 8px;
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
 }
 
 .top-nav-inner {
@@ -153,13 +159,13 @@ html::-webkit-scrollbar {
 @media (max-width: 768px) {
   :root {
     --page-gutter: 10px;
-    /* etwas mehr Platz für 2-zeilige Navi, aber nicht so groß wie vorher */
-    --nav-height: 96px;
+    /* Fallback 3-z./mehrzeilige Nav bis Messung durch ResizeObserver greift */
+    --nav-height: 152px;
   }
 
   .top-nav {
     align-items: flex-start;
-    padding-top: 10px;
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
   }
 
   .top-nav-inner {
@@ -179,7 +185,8 @@ html::-webkit-scrollbar {
 @media (max-width: 460px) {
   :root {
     --page-gutter: 8px;
-    --nav-height: 88px;
+    /* Sehr schmale Geräte: oft 3–4 Button-Zeilen */
+    --nav-height: 200px;
   }
 
   .top-nav-inner {
@@ -188,8 +195,13 @@ html::-webkit-scrollbar {
 }
 
 .nav-pill-home {
-  background-color: #ebebeb;
+  background-color: var(--nav-button-gray);
   border-radius: 0;
+}
+
+/* HOME auf der Startseite: Rahmen im Button-Grau statt Schwarz */
+.nav-pill-home-front.nav-pill-home {
+  border-color: var(--nav-button-gray);
 }
 
 .nav-pill-umfrage {
@@ -352,7 +364,7 @@ html::-webkit-scrollbar {
 .ueber-email-link-on-dark:hover,
 .ueber-email-link-on-dark:focus-visible,
 .ueber-email-link-on-dark:active {
-  color: #ffffff;
+  color: var(--nav-button-gray);
 }
 
 /* Spacer auf Umfrage bleibt bis etwa 10" erhalten */
