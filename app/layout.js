@@ -18,14 +18,11 @@ const remixA = localFont({
   style: "normal",
 });
 
+// Tab-Icon: siehe app/icon.svg (Next.js File Convention, überschreibt metadata.icons).
 export const metadata = {
   title: "Deutschland Kultur Frage",
   description:
     "Themenübersicht zu Deutschlandflagge, Deutschland, Alltag, Kultur, Werte, Politik und Zukunft.",
-  icons: {
-    icon: "/logo-circle.svg",
-    shortcut: "/logo-circle.svg",
-  },
 };
 
 export default function RootLayout({ children }) {
