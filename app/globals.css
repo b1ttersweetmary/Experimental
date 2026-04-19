@@ -334,6 +334,13 @@ html::-webkit-scrollbar {
   .deutschlandflagge-mobile-line {
     display: block;
   }
+
+  /* Flex + verschachtelte Spans: Unterstreichung wie Desktop explizit auf die Zeilen */
+  .ergebnis-link:active .deutschlandflagge-mobile-line,
+  .ergebnis-link:focus-visible .deutschlandflagge-mobile-line,
+  .ergebnis-link:hover .deutschlandflagge-mobile-line {
+    text-decoration: underline;
+  }
 }
 
 .ueber-email-link:hover,
