@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./topic.module.css";
+import { getOrCreateUserId } from "@/lib/clientUserId";
 import deutschlandflaggeTerms from "../../data/deutschlandflagge.json";
 import deutschlandTerms from "../../data/deutschland.json";
 import alltagTerms from "../../data/alltag.json";
@@ -21,29 +22,13 @@ const COLORS = [
   "#FFE5F5",
 ];
 
-const SUBMITTED_KEY = "umfrageSubmitted";
-const FINAL_KEY_PREFIX = "umfrageFinalTerms:";
-
 export default function TopicClient({ topic }) {
   const decodedTopic = topic;
 
-  const getOrCreateOwnerId = () => {
-    try {
-      const key = "umfrageOwnerId";
-      const existing = localStorage.getItem(key);
-      if (existing) return existing;
-      const generated =
-        typeof crypto !== "undefined" && crypto.randomUUID
-          ? crypto.randomUUID()
-          : `owner-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-      localStorage.setItem(key, generated);
-      return generated;
-    } catch (e) {
-      return `owner-${Date.now()}`;
-    }
-  };
-
-  const [ownerId] = useState(getOrCreateOwnerId);
+  const [ownerId, setOwnerId] = useState("");
+  useEffect(() => {
+    setOwnerId(getOrCreateUserId());
+  }, []);
 
   const [terms, setTerms] = useState([]);
   const [extraTerms, setExtraTerms] = useState([]); // {id, term, ownerId}
@@ -148,62 +133,50 @@ export default function TopicClient({ topic }) {
   }, [decodedTopic]);
 
   useEffect(() => {
-    try {
-      const submitted = localStorage.getItem(SUBMITTED_KEY) === "true";
-      if (!submitted) {
-        setExtraTerms([]);
-        return;
+    let cancelled = false;
+
+    async function loadExtras() {
+      try {
+        const res = await fetch(
+          `/api/responses?questionId=${encodeURIComponent(decodedTopic)}`
+        );
+        const data = await res.json().catch(() => ({ responses: [] }));
+        if (cancelled) return;
+        const normalized = Array.isArray(data.responses)
+          ? data.responses.map((r) => ({
+              id: r.id,
+              term: r.text,
+              ownerId: r.userId,
+            }))
+          : [];
+        setExtraTerms(normalized);
+      } catch (e) {
+        console.warn("Failed to load responses", e);
+        if (!cancelled) setExtraTerms([]);
       }
-
-      const raw = localStorage.getItem(`${FINAL_KEY_PREFIX}${decodedTopic}`);
-      const parsed = raw ? JSON.parse(raw) : [];
-      if (!Array.isArray(parsed)) {
-        setExtraTerms([]);
-        return;
-      }
-
-      // erwartet [{id, text}] oder [{id, term}]
-      const normalized = parsed
-        .map((entry, idx) => {
-          const id =
-            entry?.id != null ? String(entry.id) : `${decodedTopic}-custom-${idx}`;
-          const termValue =
-            entry?.term != null ? entry.term : entry?.text != null ? entry.text : null;
-          if (typeof termValue !== "string") return null;
-          return {
-            id,
-            term: termValue,
-            ownerId:
-              typeof entry?.ownerId === "string" ? entry.ownerId : ownerId,
-          };
-        })
-        .filter(Boolean);
-
-      setExtraTerms(normalized);
-    } catch (e) {
-      console.warn("Failed to load extra terms", e);
-      setExtraTerms([]);
     }
+
+    loadExtras();
+    const interval = setInterval(loadExtras, 25000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
   }, [decodedTopic]);
 
-  const handleRemoveExtraTerm = (id) => {
+  const handleRemoveExtraTerm = async (id) => {
     const entry = extraTerms.find((t) => t.id === id);
     if (!entry) return;
-    if (entry.ownerId !== ownerId) return; // nur der Owner kann löschen
+    if (entry.ownerId !== ownerId || !ownerId) return;
 
     try {
-      // Local-Storage aktualisieren
-      const raw = localStorage.getItem(`${FINAL_KEY_PREFIX}${decodedTopic}`);
-      const parsed = raw ? JSON.parse(raw) : [];
-      if (!Array.isArray(parsed)) return;
+      const res = await fetch(`/api/responses/${encodeURIComponent(id)}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: ownerId }),
+      });
+      if (!res.ok) return;
 
-      const updated = parsed.filter((e) => String(e?.id) !== String(id));
-      localStorage.setItem(
-        `${FINAL_KEY_PREFIX}${decodedTopic}`,
-        JSON.stringify(updated)
-      );
-
-      // UI aktualisieren
       setExtraTerms((prev) => prev.filter((t) => t.id !== id));
       setPositions((prev) => {
         const next = { ...prev };
