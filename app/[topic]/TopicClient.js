@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./topic.module.css";
@@ -289,6 +289,20 @@ export default function TopicClient({ topic }) {
     setDraggingId(null);
   };
 
+  const sortToggle = (
+    <button
+      type="button"
+      className={styles.toggle}
+      onClick={() => setSortedMode((prev) => !prev)}
+    >
+      <span
+        className={`${styles["toggle-knob"]} ${
+          sortedMode ? styles["toggle-knob-on"] : ""
+        }`}
+      />
+    </button>
+  );
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -305,34 +319,28 @@ export default function TopicClient({ topic }) {
         )}
 
         <section
-          className={styles.area}
+          className={`${styles.area} ${sortedMode ? styles.areaSortedMode : ""}`}
           ref={areaRef}
           onPointerMove={sortedMode ? undefined : handlePointerMove}
           onPointerUp={sortedMode ? undefined : handlePointerUp}
           onPointerLeave={sortedMode ? undefined : handlePointerUp}
         >
-          <div className={styles.controlBar}>
-            <button
-              type="button"
-              className={styles.toggle}
-              onClick={() => setSortedMode((prev) => !prev)}
-            >
-              <span
-                className={`${styles["toggle-knob"]} ${
-                  sortedMode ? styles["toggle-knob-on"] : ""
-                }`}
-              />
-            </button>
-          </div>
-
           {termsWithIds.length === 0 ? (
-            <p className={styles.placeholder}>
-              {decodedTopic === "Deutschlandflagge"
-                ? "Keine Begriffe geladen – bitte Seite neu laden oder Server-Log prüfen."
-                : "Hier können später Begriffe aus deiner Datei stehen."}
-            </p>
-          ) : (
-            sortedMode ? (
+            <>
+              {!sortedMode && (
+                <div className={styles.controlBar}>{sortToggle}</div>
+              )}
+              <p className={styles.placeholder}>
+                {decodedTopic === "Deutschlandflagge"
+                  ? "Keine Begriffe geladen – bitte Seite neu laden oder Server-Log prüfen."
+                  : "Hier können später Begriffe aus deiner Datei stehen."}
+              </p>
+              {sortedMode && (
+                <div className={styles.controlBarOrdered}>{sortToggle}</div>
+              )}
+            </>
+          ) : sortedMode ? (
+            <>
               <div className={styles.sortedGrid}>
                 {sortedTermsWithIds.map(({ id, term, isCustom, ownerId: termOwnerId }) => (
                   <button
@@ -355,8 +363,12 @@ export default function TopicClient({ topic }) {
                   </button>
                 ))}
               </div>
-            ) : (
-              termsWithIds.map(({ id, term, isCustom, ownerId: termOwnerId }) => {
+              <div className={styles.controlBarOrdered}>{sortToggle}</div>
+            </>
+          ) : (
+            <>
+              <div className={styles.controlBar}>{sortToggle}</div>
+              {termsWithIds.map(({ id, term, isCustom, ownerId: termOwnerId }) => {
                 const pos = positions[id] ?? { x: 0, y: 0 };
 
                 return (
@@ -390,8 +402,8 @@ export default function TopicClient({ topic }) {
                     )}
                   </button>
                 );
-              })
-            )
+              })}
+            </>
           )}
         </section>
       </main>

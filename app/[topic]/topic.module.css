@@ -32,6 +32,10 @@
 .area {
   position: relative;
   width: 100%;
+  /* Gleicher horizontaler Einzug wie Chaos-Toggle (.controlBar) für geordneten Modus */
+  --control-bar-inline: 8px;
+  /* Gleicher Abstand zum unteren Rand: Chaos (bottom) und geordnet (padding-bottom) */
+  --control-bar-bottom: 8px;
   /* Viewport-Höhe abzüglich Nav + Seitenrand (angepasst an neues Padding) */
   min-height: calc(100svh - var(--nav-height) - 16px);
   margin: 0;
@@ -39,6 +43,19 @@
   overflow: visible;
   touch-action: none;
   box-sizing: border-box;
+}
+
+/* Geordnete Liste: Scrollen auf dem Handy (Chaos-Modus behält touch-action: none) */
+.areaSortedMode {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
+  max-height: calc(100dvh - var(--nav-height) - 40px);
 }
 
 .term {
@@ -96,14 +113,29 @@
 
 .controlBar {
   position: absolute;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
+  bottom: var(--control-bar-bottom);
+  left: var(--control-bar-inline);
+  right: var(--control-bar-inline);
   display: flex;
   align-items: center;
   justify-content: space-between; /* Toggle links, Eingabefeld rechts */
   gap: 8px;
   z-index: 10;
+}
+
+/* Geordnete Ansicht: Toggle unter der Wortliste, mit Abstand (nicht am unteren Rand „klebend“) */
+.controlBarOrdered {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: clamp(20px, 4vw, 36px);
+  padding-top: 8px;
+  padding-bottom: var(--control-bar-bottom);
+  padding-left: var(--control-bar-inline);
+  padding-right: var(--control-bar-inline);
+  gap: 8px;
 }
 
 .inputBar {
@@ -149,13 +181,15 @@
 .sortedGrid {
   position: relative;
   width: 100%;
-  height: 100%;
+  min-height: min-content;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
   gap: 0;
-  /* Platz nach unten, damit keine Wörter unter dem Toggle liegen */
-  padding: 8px 8px 44px 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: var(--control-bar-inline);
+  padding-right: var(--control-bar-inline);
   box-sizing: border-box;
 }
 
@@ -181,14 +215,13 @@
 }
 
 @media (max-width: 768px) {
-  .term {
-    font-size: 0.9rem;
+  .area {
+    --control-bar-inline: 4px;
+    --control-bar-bottom: 4px;
   }
 
-  .controlBar {
-    bottom: 4px;
-    left: 4px;
-    right: 4px;
+  .term {
+    font-size: 0.9rem;
   }
 }
 
