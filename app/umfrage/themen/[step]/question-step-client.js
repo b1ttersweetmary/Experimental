@@ -108,7 +108,10 @@ export default function QuestionStepClient({ step }) {
 
   const handleAdd = async () => {
     const value = input.trim();
-    if (!value || !userId) return;
+    if (!value) return;
+    // userId aus State kommt erst nach useEffect — beim schnellen Tippen + Enter wäre es sonst leer
+    const uid = userId || getOrCreateUserId();
+    if (uid !== userId) setUserId(uid);
     try {
       const res = await fetch("/api/responses", {
         method: "POST",
@@ -116,7 +119,7 @@ export default function QuestionStepClient({ step }) {
         body: JSON.stringify({
           questionId: topicNameForStorage,
           text: value,
-          userId,
+          userId: uid,
         }),
       });
       if (!res.ok) {
@@ -210,7 +213,9 @@ export default function QuestionStepClient({ step }) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") handleAdd();
+                  if (e.key !== "Enter") return;
+                  e.preventDefault();
+                  handleAdd();
                 }}
                 className={styles.input}
               />
